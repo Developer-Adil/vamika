@@ -2,7 +2,36 @@ import React from 'react';
 import { aboutContent, heroImages } from '../data/mockData';
 import { CheckCircle2 } from 'lucide-react';
 
+const AboutHighlight = ({ highlight }) => (
+  <div className="bg-primary-dark rounded-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105">
+    <div className="flex items-start mb-4">
+      <CheckCircle2 className="w-8 h-8 text-black flex-shrink-0 mr-4" />
+      <div>
+        <h3 className="text-2xl font-semibold mb-3 text-black">
+          {highlight.title}
+        </h3>
+        <p className="text-gray-700 leading-relaxed">
+          {highlight.description}
+        </p>
+      </div>
+    </div>
+  </div>
+);
+
+const ImageCard = ({ src, alt }) => (
+  <div className="overflow-hidden rounded-lg shadow-lg">
+    <img
+      src={src}
+      alt={alt}
+      className="w-full h-80 object-cover transition-transform duration-500 hover:scale-110"
+    />
+  </div>
+);
+
 const About = () => {
+  const highlights = aboutContent.highlights || [];
+  const images = heroImages || [];
+
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -10,7 +39,7 @@ const About = () => {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(${heroImages[1]})`,
+            backgroundImage: `url(${images[1] || ''})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
@@ -36,26 +65,10 @@ const About = () => {
 
           {/* Highlights Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
-            {aboutContent.highlights && aboutContent.highlights.length > 0 && aboutContent.highlights.map((highlight, index) => {
-              return (
-              <div
-                key={`highlight-${index}`}
-                className="bg-primary-dark rounded-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105"
-              >
-                <div className="flex items-start mb-4">
-                  <CheckCircle2 className="w-8 h-8 text-black flex-shrink-0 mr-4" />
-                  <div>
-                    <h3 className="text-2xl font-semibold mb-3 text-black">
-                      {highlight.title}
-                    </h3>
-                    <p className="text-gray-700 leading-relaxed">
-                      {highlight.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              );
-            })}
+            {highlights.length > 0 && highlights[0] && <AboutHighlight highlight={highlights[0]} />}
+            {highlights.length > 1 && highlights[1] && <AboutHighlight highlight={highlights[1]} />}
+            {highlights.length > 2 && highlights[2] && <AboutHighlight highlight={highlights[2]} />}
+            {highlights.length > 3 && highlights[3] && <AboutHighlight highlight={highlights[3]} />}
           </div>
         </div>
       </section>
@@ -67,17 +80,9 @@ const About = () => {
             Our Space
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {heroImages && heroImages.length > 0 && heroImages.map((image, index) => {
-              return (
-              <div key={`image-${index}`} className="overflow-hidden rounded-lg shadow-lg">
-                <img
-                  src={image}
-                  alt={`Restaurant view ${index + 1}`}
-                  className="w-full h-80 object-cover transition-transform duration-500 hover:scale-110"
-                />
-              </div>
-              );
-            })}
+            {images.length > 0 && images[0] && <ImageCard src={images[0]} alt="Restaurant view 1" />}
+            {images.length > 1 && images[1] && <ImageCard src={images[1]} alt="Restaurant view 2" />}
+            {images.length > 2 && images[2] && <ImageCard src={images[2]} alt="Restaurant view 3" />}
           </div>
         </div>
       </section>
