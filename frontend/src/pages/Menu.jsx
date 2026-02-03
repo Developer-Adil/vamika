@@ -3,13 +3,60 @@ import { menuCategories } from '../data/mockData';
 import { Leaf } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 
+const MenuItem = ({ item }) => (
+  <div className="bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105">
+    {item.image && (
+      <div className="h-48 overflow-hidden">
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+        />
+      </div>
+    )}
+    <div className="p-6">
+      <div className="flex justify-between items-start mb-2">
+        <h3 className="text-xl font-semibold text-black flex items-center">
+          {item.name}
+          {item.vegetarian && (
+            <Leaf className="w-5 h-5 ml-2 text-green-600" />
+          )}
+        </h3>
+        <span className="text-lg font-bold text-black">{item.price}</span>
+      </div>
+      <p className="text-gray-600 leading-relaxed">{item.description}</p>
+    </div>
+  </div>
+);
+
+const MenuCategory = ({ category }) => {
+  const items = category.items || [];
+  
+  return (
+    <div>
+      <h2 className="text-3xl sm:text-4xl font-bold mb-8 font-serif text-black">
+        {category.name}
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {items.length > 0 && items[0] && <MenuItem item={items[0]} />}
+        {items.length > 1 && items[1] && <MenuItem item={items[1]} />}
+        {items.length > 2 && items[2] && <MenuItem item={items[2]} />}
+        {items.length > 3 && items[3] && <MenuItem item={items[3]} />}
+        {items.length > 4 && items[4] && <MenuItem item={items[4]} />}
+        {items.length > 5 && items[5] && <MenuItem item={items[5]} />}
+      </div>
+    </div>
+  );
+};
+
 const Menu = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const categories = menuCategories || [];
 
   const filteredCategories =
     selectedCategory === 'all'
-      ? menuCategories
-      : menuCategories.filter((cat) => cat.id === parseInt(selectedCategory));
+      ? categories
+      : categories.filter((cat) => cat.id === parseInt(selectedCategory));
 
   return (
     <div className="min-h-screen pt-20">
@@ -39,63 +86,60 @@ const Menu = () => {
               >
                 All Items
               </TabsTrigger>
-              {menuCategories && menuCategories.length > 0 && menuCategories.map((category) => {
-                return (
+              {categories.length > 0 && categories[0] && (
                 <TabsTrigger
-                  key={`cat-${category.id}`}
-                  value={category.id.toString()}
-                  onClick={() => setSelectedCategory(category.id.toString())}
+                  value={categories[0].id.toString()}
+                  onClick={() => setSelectedCategory(categories[0].id.toString())}
                   className="data-[state=active]:bg-black data-[state=active]:text-white"
                 >
-                  {category.name}
+                  {categories[0].name}
                 </TabsTrigger>
-                );
-              })}
+              )}
+              {categories.length > 1 && categories[1] && (
+                <TabsTrigger
+                  value={categories[1].id.toString()}
+                  onClick={() => setSelectedCategory(categories[1].id.toString())}
+                  className="data-[state=active]:bg-black data-[state=active]:text-white"
+                >
+                  {categories[1].name}
+                </TabsTrigger>
+              )}
+              {categories.length > 2 && categories[2] && (
+                <TabsTrigger
+                  value={categories[2].id.toString()}
+                  onClick={() => setSelectedCategory(categories[2].id.toString())}
+                  className="data-[state=active]:bg-black data-[state=active]:text-white"
+                >
+                  {categories[2].name}
+                </TabsTrigger>
+              )}
+              {categories.length > 3 && categories[3] && (
+                <TabsTrigger
+                  value={categories[3].id.toString()}
+                  onClick={() => setSelectedCategory(categories[3].id.toString())}
+                  className="data-[state=active]:bg-black data-[state=active]:text-white"
+                >
+                  {categories[3].name}
+                </TabsTrigger>
+              )}
+              {categories.length > 4 && categories[4] && (
+                <TabsTrigger
+                  value={categories[4].id.toString()}
+                  onClick={() => setSelectedCategory(categories[4].id.toString())}
+                  className="data-[state=active]:bg-black data-[state=active]:text-white"
+                >
+                  {categories[4].name}
+                </TabsTrigger>
+              )}
             </TabsList>
 
             {/* Menu Items */}
             <div className="space-y-16">
-              {filteredCategories && filteredCategories.length > 0 && filteredCategories.map((category) => {
-                return (
-                <div key={`category-${category.id}`}>
-                  <h2 className="text-3xl sm:text-4xl font-bold mb-8 font-serif text-black">
-                    {category.name}
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {category.items && category.items.length > 0 && category.items.map((item) => {
-                      return (
-                      <div
-                        key={`item-${item.id}`}
-                        className="bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105"
-                      >
-                        {item.image && (
-                          <div className="h-48 overflow-hidden">
-                            <img
-                              src={item.image}
-                              alt={item.name}
-                              className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                            />
-                          </div>
-                        )}
-                        <div className="p-6">
-                          <div className="flex justify-between items-start mb-2">
-                            <h3 className="text-xl font-semibold text-black flex items-center">
-                              {item.name}
-                              {item.vegetarian && (
-                                <Leaf className="w-5 h-5 ml-2 text-green-600" />
-                              )}
-                            </h3>
-                            <span className="text-lg font-bold text-black">{item.price}</span>
-                          </div>
-                          <p className="text-gray-600 leading-relaxed">{item.description}</p>
-                        </div>
-                      </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                );
-              })}
+              {filteredCategories.length > 0 && filteredCategories[0] && <MenuCategory category={filteredCategories[0]} />}
+              {filteredCategories.length > 1 && filteredCategories[1] && <MenuCategory category={filteredCategories[1]} />}
+              {filteredCategories.length > 2 && filteredCategories[2] && <MenuCategory category={filteredCategories[2]} />}
+              {filteredCategories.length > 3 && filteredCategories[3] && <MenuCategory category={filteredCategories[3]} />}
+              {filteredCategories.length > 4 && filteredCategories[4] && <MenuCategory category={filteredCategories[4]} />}
             </div>
           </Tabs>
         </div>
