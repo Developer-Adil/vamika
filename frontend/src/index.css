@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,6 +17,11 @@ body {
 code {
     font-family:
         source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* Serif font for headings */
+.font-serif {
+    font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 @layer base {
