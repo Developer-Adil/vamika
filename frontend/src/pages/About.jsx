@@ -36,9 +36,10 @@ const About = () => {
 
           {/* Highlights Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
-            {aboutContent.highlights.map((highlight, index) => (
+            {aboutContent.highlights && aboutContent.highlights.length > 0 && aboutContent.highlights.map((highlight, index) => {
+              return (
               <div
-                key={index}
+                key={`highlight-${index}`}
                 className="bg-primary-dark rounded-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105"
               >
                 <div className="flex items-start mb-4">
@@ -53,7 +54,8 @@ const About = () => {
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -65,15 +67,17 @@ const About = () => {
             Our Space
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {heroImages.map((image, index) => (
-              <div key={index} className="overflow-hidden rounded-lg shadow-lg">
+            {heroImages && heroImages.length > 0 && heroImages.map((image, index) => {
+              return (
+              <div key={`image-${index}`} className="overflow-hidden rounded-lg shadow-lg">
                 <img
                   src={image}
                   alt={`Restaurant view ${index + 1}`}
                   className="w-full h-80 object-cover transition-transform duration-500 hover:scale-110"
                 />
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
