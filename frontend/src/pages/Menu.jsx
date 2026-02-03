@@ -39,29 +39,33 @@ const Menu = () => {
               >
                 All Items
               </TabsTrigger>
-              {menuCategories.map((category) => (
+              {menuCategories && menuCategories.length > 0 && menuCategories.map((category) => {
+                return (
                 <TabsTrigger
-                  key={category.id}
+                  key={`cat-${category.id}`}
                   value={category.id.toString()}
                   onClick={() => setSelectedCategory(category.id.toString())}
                   className="data-[state=active]:bg-black data-[state=active]:text-white"
                 >
                   {category.name}
                 </TabsTrigger>
-              ))}
+                );
+              })}
             </TabsList>
 
             {/* Menu Items */}
             <div className="space-y-16">
-              {filteredCategories.map((category) => (
-                <div key={category.id}>
+              {filteredCategories && filteredCategories.length > 0 && filteredCategories.map((category) => {
+                return (
+                <div key={`category-${category.id}`}>
                   <h2 className="text-3xl sm:text-4xl font-bold mb-8 font-serif text-black">
                     {category.name}
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {category.items.map((item) => (
+                    {category.items && category.items.length > 0 && category.items.map((item) => {
+                      return (
                       <div
-                        key={item.id}
+                        key={`item-${item.id}`}
                         className="bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105"
                       >
                         {item.image && (
@@ -86,10 +90,12 @@ const Menu = () => {
                           <p className="text-gray-600 leading-relaxed">{item.description}</p>
                         </div>
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </Tabs>
         </div>
